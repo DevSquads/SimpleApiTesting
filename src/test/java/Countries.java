@@ -10,16 +10,20 @@ import io.restassured.http.ContentType;
 
 public class Countries {
 
+    private String API_URL = "https://restcountries-v1.p.rapidapi.com/";
+    private String API_HOST = "restcountries-v1.p.rapidapi.com";
+    private String API_KEY = "21e6f4f25dmsh8bbed3c079a43acp14bd7bjsnb34a3bcca5f8";
 
     @Test
     public void getByName() {
-        assertEquals(10, 10);
+        String countryName = "norge";
+        String endPointURL = String.format("%s%s",this.API_URL,"name");
         Response response = given()
                 .contentType(ContentType.JSON)
-                .header("X-RapidAPI-Host", "restcountries-v1.p.rapidapi.com")
-                .header("X-RapidAPI-Key", "21e6f4f25dmsh8bbed3c079a43acp14bd7bjsnb34a3bcca5f8")
+                .header("X-RapidAPI-Host", this.API_HOST)
+                .header("X-RapidAPI-Key", this.API_KEY)
                 .when()
-                .get("https://restcountries-v1.p.rapidapi.com/name/norge")
+                .get(String.format("%s/%s",endPointURL,countryName))
                 .then()
                 .statusCode(200)
                 .extract().response();
